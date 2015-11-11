@@ -1,3 +1,4 @@
+<<<<<<< Original
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.andriod.steve.tdtalks" >
@@ -21,3 +22,16 @@
     </application>
 
 </manifest>
+
+=======
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <application>
+        <activity android:name="com.andriod.steve.tdtalks.MainActivity"
+                    android:label="@string/title_activity_main"
+                android:theme="@style/AppTheme.NoActionBar"
+>
+        </activity>
+    </application>
+</manifest>
+>>>>>>> Added
