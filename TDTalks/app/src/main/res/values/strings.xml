@@ -2,4 +2,27 @@
     <string name="app_name">TDTalks</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="send_settings">Settings</string>
+    <string name="title_activity_main_menu">MainMenu</string>
+    <string name="title_activity_chat">ChatActivity</string>
+    <string name="title_activity_contacts">ContactsActivity</string>
+
+    <!-- Section for the icon colour picker -->
+    <string-array name="colours">
+        <item name="purple">Puss Purple</item>
+        <item name="dark-red">Gore Red</item>
+        <item name="pink">Klingon Blood Pink</item>
+        <item name="red">Blood Red</item>
+        <item name="orange">Fire Orange</item>
+        <item name="yellow">Bile Yellow</item>
+        <item name="green">Gangrenous Green</item>
+        <item name="cyan">Electric Blue</item>
+        <item name="aqua">Poison Aqua</item>
+        <item name="blue">Midnight Blue</item>
+    </string-array>
+
+    <string name="save">Save</string>
+
 </resources>
