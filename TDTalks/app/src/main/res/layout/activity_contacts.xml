@@ -55,7 +55,7 @@
         android:id="@+id/buttonUpdate"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:background="@color/purple"
+        android:background="@color/TDgreen"
         android:onClick="onClickEvent"
         android:textColor="@color/white"
         android:layout_alignEnd="@+id/editTextPhone" />
@@ -67,7 +67,7 @@
         android:id="@+id/buttonChat"
         android:layout_alignParentBottom="false"
         android:layout_alignParentStart="true"
-        android:background="@color/purple"
+        android:background="@color/TDgreen"
         android:onClick="onClickEvent"
         android:textColor="@color/white"
         android:layout_above="@+id/buttonUpdate"

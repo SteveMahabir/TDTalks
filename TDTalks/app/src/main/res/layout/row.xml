@@ -8,14 +8,14 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/incomingLogo"
-        android:src="@drawable/logo2"
+        android:src="@drawable/msgicon"
         android:layout_alignParentLeft="true"/>
 
     <ImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/outgoingLogo"
-        android:src="@drawable/hdpi"
+        android:src="@drawable/msgicon"
         android:layout_alignParentRight="true"/>
 
     <TextView
