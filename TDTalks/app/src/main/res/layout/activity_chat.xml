@@ -7,19 +7,11 @@
     android:background="@drawable/chatbg_gradient"
     >
 
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="420dp"
-        android:id="@+id/listView"
-        android:layout_weight="1"
-        android:layout_margin="8dp"
-        android:transcriptMode="alwaysScroll"
-        android:divider="@android:color" />
-
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="50dp"
-        android:layout_alignParentBottom="true">
+        android:layout_alignParentBottom="true"
+        android:id="@+id/relativeLayout">
 
         <ImageButton
             android:layout_width="75dp"
@@ -54,6 +46,17 @@
 
 
     </RelativeLayout>
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/listView"
+        android:layout_weight="1"
+        android:transcriptMode="alwaysScroll"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_above="@+id/relativeLayout" />
 
 
 </RelativeLayout>
