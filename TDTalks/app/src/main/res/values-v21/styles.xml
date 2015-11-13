@@ -5,4 +5,18 @@
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="AppTheme" parent="android:Theme.Material.Light.DarkActionBar">
+    </style>
+
+    <style name="AppTheme.PopupStyle">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+
+    <style name="BackGroundImageView">
+        <item name="android:alpha">0.5</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:src">@drawable/fartgates</item>
+    </style>
 </resources>
