@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Telephony;
 import android.telephony.TelephonyManager;
@@ -277,4 +278,11 @@ public class MainActivity extends Activity {
         intent.putExtra("MyPhoneno", phoneNumber);
         startActivity(intent);
     }//end ManageContact
+
+    public void onTdLink(View view) {
+        String url = "http://www.td.ca";
+        Uri uriUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
+    }
 }//end MainActivity
