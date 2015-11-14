@@ -12,12 +12,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Contacts"
+        android:text="New Contact"
         android:id="@+id/msgTitle"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:onClick="ManageContact"
-        android:textColor="@color/white" />
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        android:paddingLeft="10dp"/>
 
 
     <LinearLayout
