@@ -3,7 +3,4 @@
     tools:context="com.example.kevin.tempappp.ChatActivity">
     <item android:id="@+id/action_settings"
         android:title="Settings" />
-    <item android:id="@+id/send_settings"
-        android:icon="@drawable/redskull"
-        android:title="Send Decryption Key" />
 </menu>

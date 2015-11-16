@@ -24,5 +24,6 @@
     </string-array>
 
     <string name="save">Save</string>
+    <string name="title_activity_splash">splash</string>
 
 </resources>

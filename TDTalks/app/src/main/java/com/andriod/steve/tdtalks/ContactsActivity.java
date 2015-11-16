@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -50,7 +51,12 @@ public class ContactsActivity extends Activity {
 
         // Set Contact Name
         et = (EditText)findViewById(R.id.editTextName);
-        et.setText(name);
+        if(name == "null") {
+            et.setText("");
+            et.setHint("Enter Name Here");
+        }
+        else
+            et.setText(name);
 
         // Set Contact Phone Number
         et = (EditText)findViewById(R.id.editTextPhone);
@@ -60,9 +66,13 @@ public class ContactsActivity extends Activity {
         if(!phoneNumber.equals(""))
             et.setEnabled(false);
 
-        if(phoneNumber == null)
+        if(phoneNumber == "null") {
+            et.setHint("Enter Phone Number Here");
+            et.setText("");
             et.setEnabled(true);
-
+            Button b = (Button) findViewById(R.id.buttonUpdate);
+            b.setVisibility(View.INVISIBLE);
+        }
     }
 
 
@@ -95,19 +105,26 @@ public class ContactsActivity extends Activity {
                 break;
             case(R.id.buttonChat):
                 TelephonyManager tm = (TelephonyManager) getSystemService(TELEPHONY_SERVICE);
-                String phoneNumber;
+                String myphoneNumber;
                 if(!tm.getLine1Number().isEmpty())
-                    phoneNumber = (String)tm.getLine1Number();
+                    myphoneNumber = (String)tm.getLine1Number();
                 else
-                    phoneNumber = "5195202520";
+                    myphoneNumber = "5195202520";
+
+                EditText et = (EditText) findViewById(R.id.editTextPhone);
+                if(et.getText().toString() == "" ||
+                        et.getText().toString() == "null" ||
+                        et.getText().length() == 0)
+                    break;
+                else
+                    phoneNumber = et.getText().toString();
 
                 Intent intent = new Intent(ContactsActivity.this, ChatActivity.class);
                 intent.putExtra("phoneNo", phoneNumber);
-                intent.putExtra("MyPhoneno", phoneNumber);
+                intent.putExtra("MyPhoneno", myphoneNumber);
                 intent.putExtra("threadid", Threadid);
                 startActivity(intent);
                 break;
-
         }
     }
 

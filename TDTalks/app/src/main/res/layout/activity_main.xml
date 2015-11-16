@@ -32,7 +32,7 @@
 
         <ListView
             android:layout_width="fill_parent"
-            android:layout_height="400dp"
+            android:layout_height="430dp"
             android:id="@+id/msgListView"
             android:layout_margin="8dp"
             android:transcriptMode="alwaysScroll"
@@ -46,7 +46,9 @@
             android:cropToPadding="false"
             android:adjustViewBounds="false"
             android:longClickable="true"
-            android:onClick="onTdLink"/>
+            android:onClick="onTdLink"
+            android:scaleType="fitXY"
+            android:background="@color/TDgreen" />
 
     </LinearLayout>
 
