@@ -15,7 +15,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/outgoingLogo"
-        android:src="@drawable/msgicon"
+        android:src="@drawable/msgiconout"
         android:layout_alignParentRight="true"/>
 
     <TextView
