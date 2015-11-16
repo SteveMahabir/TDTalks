@@ -54,10 +54,6 @@
             android:name=".ContactsActivity"
             android:label="@string/title_activity_contacts" >
         </activity>
-        <activity
-            android:name=".IconPopup"
-            android:theme="@style/AppTheme.PopupStyle" >
-        </activity>
     </application>
 
 </manifest>

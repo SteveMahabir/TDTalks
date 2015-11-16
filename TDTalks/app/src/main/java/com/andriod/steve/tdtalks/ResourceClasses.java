@@ -16,185 +16,27 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by Nickademus on 10/21/15.
+ * Created by Steve on 10/21/15.
  * This is a place to stuff a bunch of the extras, mostly Listeners and things that we could take out of other code areas
  */
 
-enum SkullColour{
-    Pueple,
-    DarkRed,
-    Pink,
-    Red,
-    Orange,
-    Yellow,
-    Green,
-    Cyan,
-    Aqua,
-    Blue
-}
-
-enum SkullType{
-    Eyes,
-    Glow,
-    Flat
-}
 
 final class Resources {
 
-    private Resources(){
-    };
+    private Resources() {
+    }
 
 
-    public static String FormattedDate(long timeMillis)
-    {
+
+
+    public static String FormattedDate(long timeMillis) {
         Date date = new Date(timeMillis);
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
         return format.format(date);
     }
-
-    public static Bitmap GetSkullFromEnum( SkullColour skullour, SkullType skullType, Context con  ){
-        int image = (R.drawable.purplering);
-        Bitmap bmp = BitmapFactory.decodeResource( con.getResources(), image  );
-
-        switch ( skullour ) {
-            case Pueple:
-                default:
-                switch(skullType){
-                    case Eyes:
-                        image = (R.drawable.purpleeyes);
-                        break;
-                    default:
-                    case Glow:
-                        image = (R.drawable.purplering);
-                        break;
-                    case Flat:
-                        image = (R.drawable.purpleskull);
-                        break;
-                }
-                break;
-            case DarkRed:
-                switch(skullType){
-                    case Eyes:
-                        image = (R.drawable.darkredeyes);
-                        break;
-                    case Glow:
-                        image = (R.drawable.darkredring);
-                        break;
-                    case Flat:
-                        image = (R.drawable.darkredskull);
-                        break;
-                }
-                break;
-            case Pink:
-                switch(skullType){
-                    case Eyes:
-                        image = (R.drawable.pinkeyes);
-                        break;
-                    case Glow:
-                        image = (R.drawable.pinkring);
-                        break;
-                    case Flat:
-                        image = (R.drawable.pinkskull);
-                        break;
-                }
-                break;
-            case Red:
-                switch(skullType){
-                    case Eyes:
-                        image = (R.drawable.redeyes);
-                        break;
-                    case Glow:
-                        image = (R.drawable.redring);
-                        break;
-                    case Flat:
-                        image = (R.drawable.redskull);
-                        break;
-                }
-                break;
-            case Orange:
-                switch(skullType){
-                    case Eyes:
-                        image = (R.drawable.orangeeyes);
-                        break;
-                    case Glow:
-                        image = (R.drawable.orangering);
-                        break;
-                    case Flat:
-                        image = (R.drawable.orangeskull);
-                        break;
-                }
-                break;
-            case Yellow:
-                switch(skullType){
-                    case Eyes:
-                        image = (R.drawable.yelloweyes);
-                        break;
-                    case Glow:
-                        image = (R.drawable.yellowring);
-                        break;
-                    case Flat:
-                        image = (R.drawable.yellowskull);
-                        break;
-                }
-                break;
-            case Green:
-                switch(skullType){
-                    case Eyes:
-                        image = (R.drawable.greeneyes);
-                        break;
-                    case Glow:
-                        image = (R.drawable.greenring);
-                        break;
-                    case Flat:
-                        image = (R.drawable.greenskull);
-                        break;
-                }
-                break;
-            case Cyan:
-                switch(skullType){
-                    case Eyes:
-                        image = (R.drawable.cyaneyes);
-                        break;
-                    case Glow:
-                        image = (R.drawable.cyanring);
-                        break;
-                    case Flat:
-                        image = (R.drawable.cyanskull);
-                        break;
-                }
-                break;
-            case Aqua:
-                switch(skullType){
-                    case Eyes:
-                        image = (R.drawable.aquaeyes);
-                        break;
-                    case Glow:
-                        image = (R.drawable.aquaring);
-                        break;
-                    case Flat:
-                        image = (R.drawable.aquaskull);
-                        break;
-                }
-                break;
-            case Blue:
-                switch(skullType) {
-                    case Eyes:
-                        image = (R.drawable.blueeyes);
-                        break;
-                    case Glow:
-                        image = (R.drawable.bluering);
-                        break;
-                    case Flat:
-                        image = (R.drawable.blueskull);
-                        break;
-                }
-                break;
-        }//end switch
-        return bmp = BitmapFactory.decodeResource( con.getResources(), image  );
-    }// end GetSkullFromEnum
 }
 
-//Class added by Nick
+//Class added by Kevin
 // Touch listener class for the Press and hold picture event in chat area
 class touchListener_Image implements View.OnTouchListener{
 
@@ -245,7 +87,7 @@ class touchListener_Image implements View.OnTouchListener{
     }
 }
 
-//Class added by Nick
+//Class added by Kevin
 // Touch listener class for the Press and hold picture event in chat area
 class touchListener_Conversation implements AdapterView.OnItemClickListener{
 
