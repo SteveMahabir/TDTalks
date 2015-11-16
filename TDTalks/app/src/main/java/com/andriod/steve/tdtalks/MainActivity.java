@@ -1,12 +1,16 @@
 package com.andriod.steve.tdtalks;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Telephony;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.telephony.TelephonyManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,6 +29,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends Activity {
 
+    private static final int MY_PERMISSIONS_REQUEST_READ_CONTACTS = 0;
     // Our Phone Number!
     private String phoneNumber;
 
@@ -48,6 +53,24 @@ public class MainActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_SMS)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_SMS)) {
+
+            } else {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_SMS},
+                        MY_PERMISSIONS_REQUEST_READ_CONTACTS);
+
+            }
+        }
 
         // Setup
         setupPhoneNumber();

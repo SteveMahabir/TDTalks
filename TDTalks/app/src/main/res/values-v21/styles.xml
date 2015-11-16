@@ -17,6 +17,7 @@
     <style name="BackGroundImageView">
         <item name="android:alpha">0.5</item>
         <item name="android:scaleType">fitXY</item>
-        <item name="android:src">@drawable/fartgates</item>
+        <item name="android:src">@drawable/tdbackground</item>
     </style>
+
 </resources>

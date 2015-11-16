@@ -6,7 +6,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.kevin.tempappp.MainMenu"
     style="BackGroundImageView"
-    android:background="@drawable/fartgates">
+    android:background="@drawable/tdbackground">
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
 
         <ListView
             android:layout_width="fill_parent"
-            android:layout_height="430dp"
+            android:layout_height="460dp"
             android:id="@+id/msgListView"
             android:layout_margin="8dp"
             android:transcriptMode="alwaysScroll"
@@ -40,7 +40,7 @@
 
         <ImageButton
             android:layout_width="fill_parent"
-            android:layout_height="match_parent"
+            android:layout_height="70dp"
             android:id="@+id/imageButton"
             android:src="@drawable/tdbanner"
             android:cropToPadding="false"
