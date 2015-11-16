@@ -100,7 +100,7 @@ public class MessageReceiver extends BroadcastReceiver {
 
                 .setContentTitle(newMessage.getNumber())
                 .setContentText(msgText)
-                .setSmallIcon(R.drawable.whiteskul)
+                .setSmallIcon(R.drawable.icon)
                         //.setVibrate(temp)
                 //.setColor(Color.BLACK)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.icon))
