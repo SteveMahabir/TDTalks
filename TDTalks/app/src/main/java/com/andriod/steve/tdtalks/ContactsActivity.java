@@ -15,6 +15,7 @@ public class ContactsActivity extends Activity {
     // Contact Info
     String phoneNumber;
     String name;
+    String company;
     int Threadid;
 
     // Database Object
@@ -45,8 +46,12 @@ public class ContactsActivity extends Activity {
         {
             db.open();
             Cursor c = db.getContactByPhoneNumber(phoneNumber);
-            db.close();
+            if (c.moveToFirst())
+                company = c.getString(4);
+            else
+                company = "";
 
+            db.close();
         }
 
         // Set Contact Name
@@ -73,6 +78,11 @@ public class ContactsActivity extends Activity {
             Button b = (Button) findViewById(R.id.buttonUpdate);
             b.setVisibility(View.INVISIBLE);
         }
+
+        // Set Contact Company
+        et = (EditText)findViewById(R.id.editTextCompany);
+        et.setText(company);
+
     }
 
 
@@ -82,7 +92,7 @@ public class ContactsActivity extends Activity {
             case(R.id.buttonUpdate):
                 if(infoValidated()) {
                     db.open();
-                    if(db.updateContact(phoneNumber, name, null)) {
+                    if(db.updateContact(phoneNumber, name, null, company)) {
                         db.close();
                         Toast.makeText(this, "Success, " + name +  " Updated!", Toast.LENGTH_LONG).show();
                         finish();
@@ -123,6 +133,7 @@ public class ContactsActivity extends Activity {
                 intent.putExtra("phoneNo", phoneNumber);
                 intent.putExtra("MyPhoneno", myphoneNumber);
                 intent.putExtra("threadid", Threadid);
+                intent.putExtra("company", company);
                 startActivity(intent);
                 break;
         }
@@ -140,6 +151,9 @@ public class ContactsActivity extends Activity {
         phoneNumber = et.getText().toString();
         if(name.equals("") || name == null)
             return false;
+
+        et = (EditText)findViewById(R.id.editTextCompany);
+        company = et.getText().toString();
 
         return true;
     }

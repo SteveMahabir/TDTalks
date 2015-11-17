@@ -87,6 +87,7 @@ public class MainActivity extends Activity {
         LoadConversations();
 
         startService(new Intent(this, TDTalksService.class));
+
     }
     //end onCreate
 
@@ -279,7 +280,7 @@ public class MainActivity extends Activity {
         // Name found!
         if (c.moveToFirst())
             returnName = c.getString(2);
-        // Name not found, Add to Database!
+            // Name not found, Add to Database!
         else
             db.insertContact(phoneno, "");
 
@@ -301,5 +302,13 @@ public class MainActivity extends Activity {
         Uri uriUrl = Uri.parse(url);
         Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
         startActivity(launchBrowser);
+    }
+
+    public void MessageCompany(View view) {
+        String phoneNo = "";
+        Intent intent = new Intent(MainActivity.this, CompanyActivity.class);
+        intent.putExtra("phoneNo", phoneNo);
+        intent.putExtra("MyPhoneno", phoneNumber);
+        startActivity(intent);
     }
 }//end MainActivity

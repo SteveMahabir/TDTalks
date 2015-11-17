@@ -69,10 +69,22 @@ public class ChatActivity extends Activity {
         DBAdapter db = new DBAdapter(getBaseContext());
         db.open();
         Cursor c = db.getContactByPhoneNumber(IncomingPhoneNumber);
+        if(IncomingPhoneNumber == null)
+            IncomingPhoneNumber = "5555555555";
         db.close();
 
         IncomingPhoneNumber = String.valueOf(getIntent().getExtras().getString("phoneNo"));
         phoneNumber = String.valueOf(getIntent().getExtras().getString("MyPhoneno"));
+
+        String company = String.valueOf(getIntent().getExtras().getString("company"));
+
+        this.getActionBar().setDisplayShowTitleEnabled(true);
+
+        if(company != "null")
+            this.getActionBar().setTitle(company);
+        else
+            this.getActionBar().setTitle(phoneNumber);
+
         threadid = Integer.valueOf(getIntent().getExtras().getInt("threadid"));
         final ImageButton button = (ImageButton)findViewById(R.id.send);
         edtMessage=(EditText)findViewById(R.id.chatLine);
@@ -110,9 +122,10 @@ public class ChatActivity extends Activity {
         LoadConversation(threadid);
         adapter = new MyAdapter(this, chatMsgs, IncomingPhoneNumber);
 
-        lv = (ListView) findViewById(R.id.listView);
+        lv = (ListView) findViewById(R.id.listview);
         lv.setAdapter(adapter);
         lv.setSelection(lv.getAdapter().getCount() - 1);
+
 
     }
 
@@ -197,6 +210,8 @@ public class ChatActivity extends Activity {
             deliveryIntents.add(PendingIntent.getBroadcast(ctx, 0, new Intent(SMS_DELIVERY_ACTION), 0));
         }
 
+        if(IncomingPhoneNumber == "" || IncomingPhoneNumber.isEmpty() || IncomingPhoneNumber == null)
+            IncomingPhoneNumber = "5555555555";
         sm.sendMultipartTextMessage(IncomingPhoneNumber, null, parts, sentIntents, deliveryIntents);
     }
 

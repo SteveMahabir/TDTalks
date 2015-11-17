@@ -52,5 +52,19 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Message Company"
+        android:id="@+id/textCompany"
+        android:onClick="MessageCompany"
+        android:textSize="15dp"
+        android:textColor="@color/black"
+        android:paddingLeft="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        />
+
 
 </RelativeLayout>

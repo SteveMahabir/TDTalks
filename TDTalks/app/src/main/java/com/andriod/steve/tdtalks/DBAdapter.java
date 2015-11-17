@@ -20,6 +20,7 @@ public class DBAdapter {
     static final String KEY_PHONENO = "phoneno";
     static final String KEY_NAME = "name";
     static final String KEY_PUBLIC = "public_key";
+    static final String KEY_COMPANY = "company";
     static final String TAG = "DBAdapter";
 
     static final String DATABASE_NAME = "MyDB";
@@ -28,7 +29,7 @@ public class DBAdapter {
 
     static final String DATABASE_CREATE =
             "create table contacts (_id integer primary key autoincrement, "
-                    + "phoneno text, name text, public_key blob);";
+                    + "phoneno text, name text, public_key blob, company text);";
 
     final Context context;
 
@@ -101,7 +102,7 @@ public class DBAdapter {
     public Cursor getAllContacts()
     {
         return db.query(DATABASE_TABLE, new String[]{KEY_ROWID, KEY_PHONENO,
-                KEY_NAME, KEY_PUBLIC}, null, null, null, null, null);
+                KEY_NAME, KEY_PUBLIC, KEY_COMPANY}, null, null, null, null, null);
     }
 
     //---retrieves a particular contact---
@@ -109,7 +110,19 @@ public class DBAdapter {
     {
         Cursor mCursor =
                 db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
-                                KEY_PHONENO, KEY_NAME, KEY_PUBLIC}, KEY_PHONENO + "=" + phoneno, null,
+                                KEY_PHONENO, KEY_NAME, KEY_PUBLIC, KEY_COMPANY}, KEY_PHONENO + "=" + phoneno, null,
+                        null, null, null, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+    }
+
+    //---retrieves a particular contact---
+    public Cursor getAllCompanies() throws SQLException
+    {
+        Cursor mCursor =
+                db.query(true, DATABASE_TABLE, new String[] {KEY_COMPANY}, null , null,
                         null, null, null, null);
         if (mCursor != null) {
             mCursor.moveToFirst();
@@ -118,7 +131,7 @@ public class DBAdapter {
     }
 
     //---updates a contact---
-    public boolean updateContact(String phoneno, String name, Key public_key)
+    public boolean updateContact(String phoneno, String name, Key public_key, String company)
     {
         // Must have phone number as it is the primary key
         ContentValues args = new ContentValues();
@@ -138,6 +151,9 @@ public class DBAdapter {
 
         if(name != null)
             args.put(KEY_NAME, name);
+
+        if(company != null)
+            args.put(KEY_COMPANY, company);
 
         return db.update(DATABASE_TABLE, args, KEY_PHONENO + "=" + phoneno, null) > 0;
     }
