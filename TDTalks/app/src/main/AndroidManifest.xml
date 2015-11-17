@@ -55,7 +55,7 @@
         </activity>
         <activity
             android:name=".CompanyActivity"
-            android:label="@string/title_activity_company"
+            android:label="Company"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>

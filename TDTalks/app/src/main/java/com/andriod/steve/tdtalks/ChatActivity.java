@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.provider.Telephony;
 import android.telephony.SmsManager;
@@ -37,6 +38,8 @@ public class ChatActivity extends Activity {
     public static ArrayList<TextMessage> chatMsgs;
     static ListView lv;
     public TextView temptxtview;
+    public String companyName;
+    public Cursor companyNumbers;
 
     // Adapter Object
     static MyAdapter adapter;
@@ -65,12 +68,28 @@ public class ChatActivity extends Activity {
         globals = ((TDTalksApplication)(this.getApplication()));
 
 
+
         // Look for Friends Public Key in the Database
         DBAdapter db = new DBAdapter(getBaseContext());
         db.open();
         Cursor c = db.getContactByPhoneNumber(IncomingPhoneNumber);
         if(IncomingPhoneNumber == null)
             IncomingPhoneNumber = "5555555555";
+
+        db.close();
+        db.open();
+        companyName = String.valueOf(getIntent().getExtras().getString("company", null));
+
+        if(companyName != null)
+        {
+            try {
+                companyNumbers = db.getAllCompaniesWithPhoneNumber();
+            }
+            catch(Exception e)
+            {
+                System.out.println(e.getMessage());
+            }
+        }
         db.close();
 
         IncomingPhoneNumber = String.valueOf(getIntent().getExtras().getString("phoneNo"));
@@ -128,6 +147,93 @@ public class ChatActivity extends Activity {
 
 
     }
+
+
+    public void sendMsg(final String msg, String phoneno) {
+        Context ctx = getBaseContext();
+
+        final String SMS_SEND_ACTION = "CTS_SMS_SEND_ACTION";
+        final String SMS_DELIVERY_ACTION = "CTS_SMS_DELIVERY_ACTION";
+
+        String SENT = "SMS_SENT";
+        String DELIVERED = "SMS_DELIVERED";
+
+        SmsManager sm = SmsManager.getDefault();
+
+        IntentFilter sendIntentFilter = new IntentFilter(SMS_SEND_ACTION);
+        IntentFilter receiveIntentFilter = new IntentFilter(SMS_DELIVERY_ACTION);
+
+        PendingIntent sentPI = PendingIntent.getBroadcast(ctx, 0,new Intent(SMS_SEND_ACTION), 0);
+        PendingIntent deliveredPI = PendingIntent.getBroadcast(ctx, 0,new Intent(SMS_DELIVERY_ACTION), 0);
+        final boolean[] handled = new boolean[1];
+        handled[0] = false;
+        BroadcastReceiver messageSentReceiver = new BroadcastReceiver()
+        {
+            @Override
+            public void onReceive(Context context, Intent intent)
+            {
+                switch (getResultCode())
+                {
+                    case Activity.RESULT_OK:
+                        if (handled[0]) break;
+                        Toast.makeText(context, "SMS sent", Toast.LENGTH_SHORT).show();
+                        //chatMsgs.add(new TextMessage(false, msg, IncomingPhoneNumber, Resources.FormattedDate((new Date()).getTime()), threadid, -1));
+                        handled[0] = true;
+                        update();
+                        break;
+                    case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                        Toast.makeText(context, "Generic failure", Toast.LENGTH_SHORT).show();
+                        break;
+                    case SmsManager.RESULT_ERROR_NO_SERVICE:
+                        Toast.makeText(context, "No service", Toast.LENGTH_SHORT).show();
+                        break;
+                    case SmsManager.RESULT_ERROR_NULL_PDU:
+                        Toast.makeText(context, "Null PDU", Toast.LENGTH_SHORT).show();
+                        break;
+                    case SmsManager.RESULT_ERROR_RADIO_OFF:
+                        Toast.makeText(context, "Radio off", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        };
+
+        registerReceiver(messageSentReceiver, sendIntentFilter);
+
+        BroadcastReceiver messageReceiveReceiver = new BroadcastReceiver()
+        {
+            @Override
+            public void onReceive(Context arg0, Intent arg1)
+            {
+                switch (getResultCode())
+                {
+                    case Activity.RESULT_OK:
+                        Toast.makeText(getBaseContext(), "SMS Delivered",Toast.LENGTH_SHORT).show();
+                        break;
+                    case Activity.RESULT_CANCELED:
+                        Toast.makeText(getBaseContext(), "SMS Not Delivered", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        };
+
+        registerReceiver(messageReceiveReceiver, receiveIntentFilter);
+
+        ArrayList<String> parts =sm.divideMessage(msg);
+
+        ArrayList<PendingIntent> sentIntents = new ArrayList<PendingIntent>();
+        ArrayList<PendingIntent> deliveryIntents = new ArrayList<PendingIntent>();
+
+        for (int i = 0; i < parts.size(); i++)
+        {
+            sentIntents.add(PendingIntent.getBroadcast(ctx, 0, new Intent(SMS_SEND_ACTION), 0));
+            deliveryIntents.add(PendingIntent.getBroadcast(ctx, 0, new Intent(SMS_DELIVERY_ACTION), 0));
+        }
+
+        if(phoneno == "" || phoneno.isEmpty() || phoneno == null)
+            phoneno = "5555555555";
+        sm.sendMultipartTextMessage(phoneno, null, parts, sentIntents, deliveryIntents);
+    }
+
 
 
     public void sendMsg(final String msg) {
@@ -283,7 +389,20 @@ public class ChatActivity extends Activity {
                 String raw_message = edtMessage.getText().toString().trim();
                 if (raw_message != "")
                 {
-                    sendMsg(raw_message);
+                    if(companyNumbers.getCount() > 1) {
+                        do {
+                            if(companyNumbers.getString(0) != null) {
+                                if (companyNumbers.getString(0).equals(companyName))
+                                    sendMsg(raw_message, companyNumbers.getString(1));
+                            }
+                        } while (companyNumbers.moveToNext());
+
+                        finish();
+
+                    }
+                    else {
+                        sendMsg(raw_message);
+                    }
                     edtMessage.setText("");
                 }
                 break;
