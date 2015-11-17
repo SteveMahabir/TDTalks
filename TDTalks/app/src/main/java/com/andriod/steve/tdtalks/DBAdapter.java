@@ -130,6 +130,18 @@ public class DBAdapter {
         return mCursor;
     }
 
+    public Cursor getAllContactsByCompany(String company) throws SQLException
+    {
+        Cursor mCursor =
+                db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
+                                KEY_PHONENO, KEY_NAME, KEY_PUBLIC, KEY_COMPANY}, KEY_COMPANY + "=" + company, null,
+                        null, null, null, null);
+        if (mCursor != null) {
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+    }
+
     //---updates a contact---
     public boolean updateContact(String phoneno, String name, Key public_key, String company)
     {
