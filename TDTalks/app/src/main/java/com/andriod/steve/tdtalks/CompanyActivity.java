@@ -36,24 +36,35 @@ public class CompanyActivity extends AppCompatActivity implements AdapterView.On
         db = new DBAdapter(this);
         Cursor c;
         db.open();
-        c = db.getAllCompanies();
+        try {
+            c = db.getAllCompanies();
 
-        if (c.moveToFirst())
-        {
-            do {
-                if(c.getString(0) != "") {
-                    String temp = c.getString(0);
-                    if(temp != null)
-                        ar.add(c.getString(0));
-                    //Toast.makeText(this, "Company: " + c.getString(0) + "\n", Toast.LENGTH_SHORT).show();
+
+            if(c.getCount() != 0) {
+                if (c.moveToFirst()) {
+                    do {
+                        if (c.getString(0) != "") {
+                            String temp = c.getString(0);
+                            if (temp != null)
+                                ar.add(c.getString(0));
+                            //Toast.makeText(this, "Company: " + c.getString(0) + "\n", Toast.LENGTH_SHORT).show();
+                        }
+                    } while (c.moveToNext());
                 }
-            } while (c.moveToNext());
+
+            }
         }
+        catch(Exception e)
+        {
+            System.out.println(e.getMessage());
+        }
+
         db.close();
 
         if(ar.isEmpty()) {
             ar.add("Sorry, no companies found");
             Button b = (Button) findViewById(R.id.buttonChat);
+            if(b != null)
             b.setVisibility(View.INVISIBLE);
         }
 
@@ -63,10 +74,7 @@ public class CompanyActivity extends AppCompatActivity implements AdapterView.On
 
             ListView lv = (ListView) findViewById(R.id.listCompany);
 
-            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
-                    getBaseContext(),
-                    android.R.layout.simple_list_item_1,
-                    ar );
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getBaseContext(),R.layout.row3, ar );
 
             lv.setAdapter(arrayAdapter);
             lv.setOnItemClickListener(this);

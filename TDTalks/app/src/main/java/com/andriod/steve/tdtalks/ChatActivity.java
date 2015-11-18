@@ -1,6 +1,7 @@
 package com.andriod.steve.tdtalks;
 
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -15,6 +16,7 @@ import android.provider.Telephony;
 import android.telephony.SmsManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -392,8 +394,10 @@ public class ChatActivity extends Activity {
                     if(companyNumbers.getCount() > 1) {
                         do {
                             if(companyNumbers.getString(0) != null) {
-                                if (companyNumbers.getString(0).equals(companyName))
+                                if (companyNumbers.getString(0).equals(companyName)) {
+                                    if(!raw_message.isEmpty())
                                     sendMsg(raw_message, companyNumbers.getString(1));
+                                }
                             }
                         } while (companyNumbers.moveToNext());
 
