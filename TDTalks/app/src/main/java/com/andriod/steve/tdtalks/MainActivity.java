@@ -277,6 +277,9 @@ public class MainActivity extends Activity {
         db.open();
         c = db.getContactByPhoneNumber(phoneno);
 
+        if(c == null)
+            return phoneno;
+
         // Name found!
         if (c.moveToFirst())
             returnName = c.getString(2);

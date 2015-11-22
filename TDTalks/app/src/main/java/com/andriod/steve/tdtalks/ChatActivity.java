@@ -69,7 +69,10 @@ public class ChatActivity extends Activity {
 
         globals = ((TDTalksApplication)(this.getApplication()));
 
+        IncomingPhoneNumber = String.valueOf(getIntent().getExtras().getString("phoneNo"));
+        phoneNumber = String.valueOf(getIntent().getExtras().getString("MyPhoneno"));
 
+        String company = String.valueOf(getIntent().getExtras().getString("company"));
 
         // Look for Friends Public Key in the Database
         DBAdapter db = new DBAdapter(getBaseContext());
@@ -93,11 +96,6 @@ public class ChatActivity extends Activity {
             }
         }
         db.close();
-
-        IncomingPhoneNumber = String.valueOf(getIntent().getExtras().getString("phoneNo"));
-        phoneNumber = String.valueOf(getIntent().getExtras().getString("MyPhoneno"));
-
-        String company = String.valueOf(getIntent().getExtras().getString("company"));
 
         this.getActionBar().setDisplayShowTitleEnabled(true);
 

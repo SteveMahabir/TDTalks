@@ -86,6 +86,9 @@ public class DBAdapter {
     //---insert a contact into the database---
     public long insertContact(String phone, String name)
     {
+        if(phone.contains("+"))
+            phone = phone.substring(1);
+
         ContentValues initialValues = new ContentValues();
         initialValues.put(KEY_PHONENO, phone);
         initialValues.put(KEY_NAME, name);
@@ -108,6 +111,14 @@ public class DBAdapter {
     //---retrieves a particular contact---
     public Cursor getContactByPhoneNumber(String phoneno) throws SQLException
     {
+
+        if(phoneno.contains("+"))
+            phoneno = phoneno.substring(1);
+
+        if(phoneno.contains("@")) {
+            return null;
+        }
+
         Cursor mCursor =
                 db.query(true, DATABASE_TABLE, new String[] {KEY_ROWID,
                                 KEY_PHONENO, KEY_NAME, KEY_PUBLIC, KEY_COMPANY}, KEY_PHONENO + "=" + phoneno, null,
@@ -156,6 +167,10 @@ public class DBAdapter {
     //---updates a contact---
     public boolean updateContact(String phoneno, String name, Key public_key, String company)
     {
+
+        if(phoneno.contains("+"))
+            phoneno = phoneno.substring(1);
+
         // Must have phone number as it is the primary key
         ContentValues args = new ContentValues();
         args.put(KEY_PHONENO, phoneno);
